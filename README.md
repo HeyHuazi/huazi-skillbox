@@ -1,6 +1,6 @@
 # design-methods
 
-从语雀「大厂项目复盘知识库」2388 篇大厂设计复盘文章（42947 张配图 OCR 文字挖掘）中提炼的 **6 个设计方法 Agent Skill**，面向 [Agent Skill](https://code.claude.com/docs/en/skills) 标准格式（SKILL.md + YAML frontmatter + refs/ 结构化数据）。
+从语雀「[大厂项目复盘知识库](https://www.yuque.com/suoyibo/lk20w0)」2388 篇大厂设计复盘文章（42947 张配图 OCR 文字挖掘）中提炼的 **6 个设计方法 Agent Skill**，面向 [Agent Skill](https://code.claude.com/docs/en/skills) 标准格式（SKILL.md + YAML frontmatter + refs/ 结构化数据）。
 
 每个 skill = 一类设计工作的速查手册：方法卡片含适用场景、操作步骤、关键原则、出处文章，可直接驱动 AI 助手按大厂实战方法论执行任务。
 
