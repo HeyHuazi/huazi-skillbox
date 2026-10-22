@@ -2,6 +2,14 @@
 name: project-review-writing
 description: 大厂项目复盘写作模板。当要写设计复盘、项目总结、改版复盘、述职报告、公众号设计文章时使用。Use when writing project retrospectives, design review articles, or design-team blog posts.
 version: 1.0
+
+<!--
+[L3 契约]
+[INPUT]: 依赖 ./refs/ 的 JSON 方法卡数据（refs/review-template.json，本 skill 专属）。
+[OUTPUT]: 对外提供 SKILL.md 单文件——方法决策树、适用场景、操作步骤与关键原则
+[POS]: skills/project-review-writing 的唯一入口。面向复盘/总结/述职类写作任务；design-delivery-playbook 处理交付过程，它处理事后的叙事表达。catalog/ 是其语料出处，不构成运行依赖。
+[PROTOCOL]: 变更时更新此头部，然后检查本目录 CLAUDE.md
+-->
 ---
 
 # 大厂复盘写作手册（26 篇精读提炼）

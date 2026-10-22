@@ -35,6 +35,22 @@ cp -R skills/<skill-name> ~/.config/alma/skills/
 
 文章索引见 [catalog](catalog/)。
 
+## 新增 Skill（治理流程）
+
+```bash
+# 1. 脚手架
+./scripts/new-skill.sh my-skill "一句话中文简介" "English trigger description"
+
+# 2. 填写 SKILL.md 正文与 refs/ 数据
+
+# 3. README 一览表 + 根 CLAUDE.md L2 索引各加一行
+
+# 4. 校验通过后提交
+./scripts/validate.sh
+```
+
+规则：slug 一律 kebab-case；frontmatter 必含 name/description/version 且 name 等于目录名；方法卡数据放 refs/，SKILL.md 只做导航；文档三层结构（根 CLAUDE.md → skill 目录 CLAUDE.md → SKILL.md 头部契约）由校验脚本守护同构。
+
 ## 数据来源
 
 - 语雀「大厂项目复盘知识库」（<https://www.yuque.com/suoyibo/lk20w0>）：2388 篇大厂设计复盘文章

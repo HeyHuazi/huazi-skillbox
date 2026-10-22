@@ -2,6 +2,14 @@
 name: efficiency-toolkit
 description: 设计师工作效率工具箱。做时间管理、任务规划、审批流提效、流程自动化、AI 批量处理表格、数据可视化选型时使用。Use for time management, task planning, workflow automation, approval process efficiency, AI batch processing, chart selection.
 version: 1.0
+
+<!--
+[L3 契约]
+[INPUT]: 依赖 ./refs/ 的 JSON 方法卡数据（refs/efficiency-methods.json，本 skill 专属）。
+[OUTPUT]: 对外提供 SKILL.md 单文件——方法决策树、适用场景、操作步骤与关键原则
+[POS]: skills/efficiency-toolkit 的唯一入口。面向时间管理、流程自动化、AI 批处理等效率任务；不覆盖设计方法论本身。catalog/ 是其语料出处，不构成运行依赖。
+[PROTOCOL]: 变更时更新此头部，然后检查本目录 CLAUDE.md
+-->
 ---
 
 # 设计提效工具链（效率类 11 法）

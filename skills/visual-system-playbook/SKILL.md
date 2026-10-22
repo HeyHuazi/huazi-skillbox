@@ -2,6 +2,14 @@
 name: visual-system-playbook
 description: 视觉体系构建手册。做品牌定义、设计语言、大改版视觉升级、情绪板、Design Token、暗黑模式、色板与无障碍配色时使用。Use for brand definition, design language, visual redesign, mood boards, design tokens, dark mode, and accessible color systems.
 version: 1.0
+
+<!--
+[L3 契约]
+[INPUT]: 依赖 ./refs/ 的 JSON 方法卡数据（refs/methods.json，与 3 个兄弟 skill 共享同库）。
+[OUTPUT]: 对外提供 SKILL.md 单文件——方法决策树、适用场景、操作步骤与关键原则
+[POS]: skills/visual-system-playbook 的唯一入口。面向品牌/视觉体系构建任务；研究输入来自 ux-research-playbook，不自行做研究。catalog/ 是其语料出处，不构成运行依赖。
+[PROTOCOL]: 变更时更新此头部，然后检查本目录 CLAUDE.md
+-->
 ---
 
 # 视觉体系构建手册（品牌/语言/改版/情绪板）

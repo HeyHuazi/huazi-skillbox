@@ -2,6 +2,14 @@
 name: ux-research-playbook
 description: 大厂用户研究方法速查手册。当需要做用户研究、体验地图、用户画像、可用性测试、眼动实验、服务蓝图、workshop 共创时使用。Use when planning user research, journey maps, personas, usability testing, or workshops.
 version: 1.0
+
+<!--
+[L3 契约]
+[INPUT]: 依赖 ./refs/ 的 JSON 方法卡数据（refs/methods.json，与 3 个兄弟 skill 共享同库）。
+[OUTPUT]: 对外提供 SKILL.md 单文件——方法决策树、适用场景、操作步骤与关键原则
+[POS]: skills/ux-research-playbook 的唯一入口。面向用户研究规划任务；产出研究结论供 behavior-design-toolkit 落地转化。catalog/ 是其语料出处，不构成运行依赖。
+[PROTOCOL]: 变更时更新此头部，然后检查本目录 CLAUDE.md
+-->
 ---
 
 # 用户研究方法手册（大厂实战版）

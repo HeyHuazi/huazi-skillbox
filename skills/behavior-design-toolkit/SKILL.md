@@ -2,6 +2,14 @@
 name: behavior-design-toolkit
 description: 行为设计三件套落地法。做增长转化、引导用户行为、新用户引导、留存活动、签到激励体系、会员等级、勋章、裂变红包、AB 测试设计时使用。Use for conversion optimization, onboarding, growth campaigns, check-in & loyalty systems, membership tiers, and A/B testing.
 version: 1.0
+
+<!--
+[L3 契约]
+[INPUT]: 依赖 ./refs/ 的 JSON 方法卡数据（refs/methods.json，与 3 个兄弟 skill 共享同库）。
+[OUTPUT]: 对外提供 SKILL.md 单文件——方法决策树、适用场景、操作步骤与关键原则
+[POS]: skills/behavior-design-toolkit 的唯一入口。面向增长转化与用户行为设计任务；与 efficiency-toolkit 互补，不覆盖研究方法。catalog/ 是其语料出处，不构成运行依赖。
+[PROTOCOL]: 变更时更新此头部，然后检查本目录 CLAUDE.md
+-->
 ---
 
 # 行为设计工具箱（B=MAT / AIDTAS / 认知偏差）

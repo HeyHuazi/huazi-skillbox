@@ -2,6 +2,14 @@
 name: design-delivery-playbook
 description: 设计流程与交付质量手册。做设计评审、走查、交付还原、上线前检查、印前检查、需求协同、验收走查时使用。Use for design reviews, walk-throughs, handoff QA, pre-launch checks, and design-dev collaboration.
 version: 1.0
+
+<!--
+[L3 契约]
+[INPUT]: 依赖 ./refs/ 的 JSON 方法卡数据（refs/methods.json，与 3 个兄弟 skill 共享同库）。
+[OUTPUT]: 对外提供 SKILL.md 单文件——方法决策树、适用场景、操作步骤与关键原则
+[POS]: skills/design-delivery-playbook 的唯一入口。面向设计评审、走查、交付质量任务；project-review-writing 处理复盘写作，它处理交付过程。catalog/ 是其语料出处，不构成运行依赖。
+[PROTOCOL]: 变更时更新此头部，然后检查本目录 CLAUDE.md
+-->
 ---
 
 # 设计流程与交付手册（评审/走查/还原/印前）
