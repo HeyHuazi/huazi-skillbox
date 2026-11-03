@@ -1,0 +1,25 @@
+{
+  "main-account": {
+    "account": "上海继续工程教育协会主号",
+    "source": "/Users/huazi/Downloads/主号排版/（2026-10-27 至 2026-10-30 的多篇排版成稿）",
+    "style": "assets/main-account/style.css",
+    "wrapper": "wx-main",
+    "description": "约 677px 版心，#3B5BA5 蓝色栏目线与左边线小节标题，17px 正文、1.8 行高；以多篇成稿的共性为准，个别绿色专题配色不自动套用。"
+  },
+  "ai-night-school": {
+    "account": "上海 AI 夜校",
+    "source": "/Users/huazi/Code/Developer/MarkFlow/src/themes/markdown-style/ai-night-school.css",
+    "style": "assets/ai-night-school/ai-night-school.css",
+    "reset": "assets/ai-night-school/reset.css",
+    "wrapper": "bm-md",
+    "description": "MarkFlow 的 AI 夜校主题，蓝签名色 #024CC6；复制版本已保留 #bm-md 主题契约。"
+  },
+  "deep-reading": {
+    "account": "中继协人工智能分会号",
+    "source": "/Users/huazi/Code/Developer/MarkFlow/src/themes/markdown-style/deepread.css",
+    "style": "assets/deep-reading/deepread.css",
+    "reset": "assets/deep-reading/reset.css",
+    "wrapper": "bm-md",
+    "description": "MarkFlow 的深度阅读主题，680px 阅读节奏、17px 正文；原主题受 huasheng_editor MIT 许可证约束，附完整声明。"
+  }
+}

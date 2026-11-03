@@ -1,0 +1,52 @@
+{
+  "presets": [
+    {
+      "id": "weekly-blue",
+      "name": "蓝色周刊",
+      "use_when": [
+        "周刊封面",
+        "简报封面",
+        "资讯汇总封面"
+      ],
+      "layouts": [
+        "cover"
+      ],
+      "css": "assets/weekly-blue/style.css",
+      "fields": [
+        "publisher",
+        "cadence",
+        "title",
+        "issue",
+        "watermark"
+      ],
+      "constraints": [
+        "同组统一画幅和样式，用户指定多尺寸时分别排版",
+        "淡字限 2 字",
+        "长图正文使用正常文档流，高度自动测量",
+        "演示正文不得作为正式资讯交付"
+      ],
+      "default_format": "card",
+      "formats": {
+        "card": {
+          "width": 1080,
+          "height": 1440,
+          "html": "assets/weekly-blue/card.html",
+          "preview": "previews/weekly-blue-card.png"
+        },
+        "square": {
+          "width": 1080,
+          "height": 1080,
+          "html": "assets/weekly-blue/square.html",
+          "preview": "previews/weekly-blue-square.png"
+        },
+        "long": {
+          "width": 1080,
+          "height": "auto",
+          "html": "assets/weekly-blue/long.html",
+          "preview": "previews/weekly-blue-long.png",
+          "min_height": 2400
+        }
+      }
+    }
+  ]
+}

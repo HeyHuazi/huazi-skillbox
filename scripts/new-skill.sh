@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
 # 新 skill 脚手架
 # 用法: ./scripts/new-skill.sh <slug> "<一句话简介（中文）>" "<英文 description 片段>"
-# [PROTOCOL]: 模板结构变更时更新此文件，然后检查 CLAUDE.md 与 validate.sh
+# [INPUT]: skill 名称、中英文简介与仓库目录。
+# [OUTPUT]: SKILL.md、CLAUDE.md 与 refs 目录。
+# [POS]: 全库 skill 脚手架；生成结果由 validate.sh 校验。
+# [PROTOCOL]: 变更时更新此头部，然后检查 CLAUDE.md
 set -eu
 
 cd "$(dirname "$0")/.."
@@ -16,7 +19,7 @@ mkdir -p "skills/$slug/refs"
 cat > "skills/$slug/SKILL.md" <<EOF
 ---
 name: $slug
-description: $cn。$en
+description: ${cn}。${en}
 version: 0.1
 ---
 
@@ -25,7 +28,7 @@ version: 0.1
 [INPUT]: 依赖 ./refs/ 的 JSON 方法卡数据
 [OUTPUT]: 对外提供 SKILL.md 单文件——方法决策树、适用场景、操作步骤与关键原则
 [POS]: skills/$slug 的唯一入口。（TODO: 与兄弟 skill 的边界）
-[PROTOCOL]: 变更时更新此头部，然后检查本目录 CLAUDE.md
+[PROTOCOL]: 变更时更新此头部，然后检查 CLAUDE.md
 -->
 
 # ${slug}（TODO: 中文标题）
@@ -40,14 +43,14 @@ EOF
 cat > "skills/$slug/CLAUDE.md" <<EOF
 # $slug/
 
-> L2 | 父级: /CLAUDE.md
+> L2 | 父级: ../../CLAUDE.md
 
 ## 成员清单
 
 - SKILL.md: skill 唯一入口。YAML frontmatter（name/description/version）+ L3 契约 + 方法决策树与正文。Agent 按此文件驱动执行。
 - refs/: 结构化方法卡数据（TODO: 填数据文件名与规模）
 
-[PROTOCOL]: 变更时更新此头部（文件增删、职责变更），然后检查 CLAUDE.md
+[PROTOCOL]: 变更时更新此头部，然后检查 CLAUDE.md
 EOF
 
 echo "已生成 skills/$slug/ （SKILL.md + CLAUDE.md + refs/）"

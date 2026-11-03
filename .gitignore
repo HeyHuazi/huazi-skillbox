@@ -1,0 +1,9 @@
+# 本机缓存与依赖
+.DS_Store
+node_modules/
+__pycache__/
+*.py[cod]
+.venv/
+
+# 本次任务产物；可复用预览存放在 skill 的 previews/
+/outputs/

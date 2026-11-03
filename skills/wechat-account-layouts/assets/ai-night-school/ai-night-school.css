@@ -1,0 +1,336 @@
+/**
+ * [INPUT]: 依赖 reset.css 提供的基础重置，遵循 #bm-md 主题选择器与完整 Markdown 元素契约
+ * [OUTPUT]: 对外提供 AI夜校 Markdown 排版样式，由 loader.ts 以内联 CSS 加载
+ * [POS]: markdown-style 的独立视觉主题，由爱范儿版式演化：蓝签名色 #024CC6 小节标题、
+ *        圆角媒体与签名蓝短细线分割；无装饰图，首块贴顶（含 figure 内 img 塌陷逃逸治理）
+ * [PROTOCOL]: 变更时更新此头部，然后检查 CLAUDE.md
+ */
+
+#bm-md {
+  color: #222222;
+  background-color: #ffffff;
+  font-family:
+    'PingFang SC',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    'Microsoft YaHei',
+    sans-serif;
+  font-size: 15px;
+  line-height: 1.8;
+  padding: 1em 14px;
+  word-break: normal;
+}
+
+/* ===== 标题：蓝签名色 + 科技媒体大留白 ===== */
+
+#bm-md h1,
+#bm-md h2,
+#bm-md h3,
+#bm-md h4,
+#bm-md h5,
+#bm-md h6 {
+  font-family:
+    'PingFang SC',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    'Microsoft YaHei',
+    sans-serif;
+  font-weight: 600;
+  line-height: 1.5;
+  margin-top: 2.6em;
+  margin-bottom: 1.1em;
+  padding: 0;
+}
+
+#bm-md h1 {
+  font-size: 1.55em;
+  color: #111111;
+  font-weight: 700;
+  line-height: 1.4;
+  margin-top: 1.2em;
+  margin-bottom: 1.4em;
+  text-align: left;
+}
+
+#bm-md h2 {
+  font-size: 1.33em;
+  color: #024cc6;
+  line-height: 1.4;
+  margin-top: 1.5em;
+  margin-bottom: 1em;
+}
+
+#bm-md h3 {
+  font-size: 1.2em;
+  color: #024cc6;
+  margin-top: 2.8em;
+  margin-bottom: 1em;
+}
+
+#bm-md h4 {
+  font-size: 1.07em;
+  color: #111111;
+  margin-top: 2.2em;
+  margin-bottom: 0.9em;
+}
+
+#bm-md h5,
+#bm-md h6 {
+  font-size: 1em;
+  color: #111111;
+  margin-top: 1.8em;
+  margin-bottom: 0.8em;
+}
+
+/* ===== 正文段落 ===== */
+
+#bm-md p {
+  margin: 1.73em 0;
+}
+
+#bm-md b,
+#bm-md strong {
+  font-weight: bold;
+  color: #111111;
+}
+
+#bm-md em,
+#bm-md i {
+  font-style: italic;
+}
+
+#bm-md del,
+#bm-md s,
+#bm-md strike {
+  color: #999999;
+}
+
+#bm-md mark {
+  background-color: #e8effc;
+  color: #024cc6;
+  padding: 0 0.2em;
+  border-radius: 3px;
+}
+
+#bm-md small {
+  font-size: 0.85em;
+  color: #888888;
+}
+
+#bm-md a {
+  color: #023a97;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(2, 76, 198, 0.35);
+}
+
+#bm-md abbr[title] {
+  text-decoration: none;
+  border-bottom: 1px dotted #cccccc;
+}
+
+/* ===== 图片：大圆角（原文 superellipse 圆角的网页近似） ===== */
+
+#bm-md img {
+  display: block;
+  width: 100%;
+  margin: 1.8em auto;
+  border-radius: 18px;
+  object-fit: contain;
+  object-position: center center;
+}
+
+#bm-md figure {
+  margin: 2em 0;
+  text-align: center;
+}
+
+#bm-md figcaption {
+  font-size: 0.8em;
+  color: #999999;
+  line-height: 1.6;
+  margin-top: -1em;
+  margin-bottom: 1.6em;
+  text-align: center;
+}
+
+#bm-md iframe,
+#bm-md video {
+  width: 100%;
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+/* ===== 引用：浅暖灰底 + 橙红左签 ===== */
+
+#bm-md blockquote {
+  margin: 1.9em 0;
+  padding: 0.9em 1.1em;
+  background-color: #faf7f5;
+  border-left: 3px solid #024cc6;
+  border-radius: 0 12px 12px 0;
+  color: #555555;
+  font-size: 0.95em;
+  line-height: 1.75;
+}
+
+#bm-md blockquote p {
+  margin: 0.5em 0;
+}
+
+#bm-md q {
+  color: #023a97;
+}
+
+/* ===== 列表 ===== */
+
+#bm-md ul,
+#bm-md ol {
+  margin: 1.5em 0;
+  padding-left: 1.5em;
+}
+
+#bm-md li {
+  margin: 0.55em 0;
+  line-height: 1.75;
+}
+
+#bm-md ul {
+  list-style-type: disc;
+}
+
+#bm-md ol {
+  list-style-type: decimal;
+}
+
+#bm-md dd {
+  margin: 0.4em 0 0.8em;
+  padding-left: 1.4em;
+}
+
+#bm-md dt {
+  font-weight: bold;
+  color: #111111;
+}
+
+/* ===== 代码：浅灰底 + 等宽 ===== */
+
+#bm-md code,
+#bm-md tt,
+#bm-md samp,
+#bm-md var,
+#bm-md kbd {
+  font-family: 'SF Mono', 'Menlo', 'Consolas', 'Courier New', monospace;
+  font-size: 0.88em;
+  background-color: #f5f5f7;
+  color: #c7254e;
+  padding: 0.15em 0.4em;
+  border-radius: 5px;
+}
+
+#bm-md pre {
+  margin: 1.8em 0;
+  padding: 1em 1.2em;
+  background-color: #f5f5f7;
+  border-radius: 14px;
+  overflow-x: auto;
+  line-height: 1.6;
+  font-size: 0.88em;
+}
+
+#bm-md pre code {
+  background-color: transparent;
+  color: #222222;
+  padding: 0;
+  border-radius: 0;
+  font-size: 1em;
+}
+
+#bm-md kbd {
+  border: 1px solid #dddddd;
+  border-bottom-width: 2px;
+  background-color: #ffffff;
+}
+
+/* ===== 表格 ===== */
+
+#bm-md table {
+  width: 100%;
+  margin: 1.8em 0;
+  border-collapse: collapse;
+  font-size: 0.92em;
+  line-height: 1.6;
+}
+
+#bm-md th {
+  font-weight: 600;
+  color: #ffffff;
+  background-color: #222222;
+  padding: 0.65em 0.9em;
+  text-align: left;
+}
+
+#bm-md td {
+  padding: 0.65em 0.9em;
+  border-bottom: 1px solid #ececec;
+  color: #333333;
+}
+
+#bm-md tbody tr:nth-child(2n) {
+  background-color: #fafafa;
+}
+
+/* ===== 分割线：签名蓝短细线 ===== */
+
+#bm-md hr {
+  border: none;
+  height: 2px;
+  max-width: 12em;
+  background-color: #024cc6;
+  margin: 2.2em auto;
+}
+
+/* ===== 脚注与杂项 ===== */
+
+#bm-md sub,
+#bm-md sup {
+  font-size: 0.72em;
+  line-height: 0;
+}
+
+#bm-md ins {
+  text-decoration: none;
+  border-bottom: 1px solid #024cc6;
+  color: #023a97;
+}
+
+#bm-md details {
+  margin: 1.5em 0;
+  padding: 0.8em 1em;
+  background-color: #fafafa;
+  border-radius: 10px;
+}
+
+#bm-md summary {
+  font-weight: 600;
+  color: #111111;
+  cursor: pointer;
+}
+
+#bm-md ruby rt {
+  font-size: 0.6em;
+  color: #888888;
+}
+
+#bm-md time {
+  color: #999999;
+  font-size: 0.9em;
+}
+
+/* ===== 首块贴顶：置于文件尾，juice 内联按出现顺序拼接，须晚于 figure/img 的 margin 简写 ===== */
+
+#bm-md > :first-child,
+#bm-md figure.figure-image:first-child img {
+  margin-top: 0;
+}

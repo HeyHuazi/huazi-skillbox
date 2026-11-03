@@ -1,0 +1,629 @@
+/**
+ * [INPUT]: 依赖 reset.css 提供的基础重置，遵循 #bm-md 主题选择器与完整 Markdown 元素契约
+ * [OUTPUT]: 对外提供 Deep Read Markdown 排版样式，由 loader.ts 以内联 CSS 加载
+ * [POS]: markdown-style 的深度阅读主题。还原 huasheng_editor 的正文节奏，区分独立 figure 和混排行内图片
+ * [PROTOCOL]: 变更时更新此头部，然后检查 CLAUDE.md
+ */
+
+/*
+ * 设计灵感：深度阅读，源自 huasheng_editor（MIT License）。
+ * 完整第三方版权声明见仓库根目录 THIRD_PARTY_NOTICES.md。
+ */
+
+#bm-md {
+  color: #1a1a1a;
+  background-color: #ffffff;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 17px;
+  line-height: 1.75;
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 14px 12px 32px;
+  overflow-wrap: break-word;
+}
+
+#bm-md h1,
+#bm-md h2,
+#bm-md h3,
+#bm-md h4,
+#bm-md h5,
+#bm-md h6 {
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-weight: 700;
+}
+
+#bm-md h1 {
+  font-size: 26px;
+  line-height: 1.25;
+  color: #0a0a0a;
+  margin: 36px 0 18px;
+}
+
+#bm-md h2 {
+  font-size: 22px;
+  line-height: 1.3;
+  color: #0a0a0a;
+  margin: 32px 0 16px;
+}
+
+#bm-md h3 {
+  font-size: 19px;
+  font-weight: 600;
+  line-height: 1.35;
+  color: #1a1a1a;
+  margin: 28px 0 14px;
+}
+
+#bm-md h4,
+#bm-md h5,
+#bm-md h6 {
+  color: #2a2a2a;
+}
+
+#bm-md h4 {
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.4;
+  margin: 24px 0 12px;
+}
+
+#bm-md h5 {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.45;
+  color: #3a3a3a;
+  margin: 20px 0 10px;
+}
+
+#bm-md h6 {
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.45;
+  color: #4a4a4a;
+  margin: 18px 0 9px;
+}
+
+/* 标题内的强调与链接继承标题颜色，避免强调规则遮盖标题层级。 */
+#bm-md :is(h1, h2, h3, h4, h5, h6) :is(strong, b, em, i, a, code, span, mark) {
+  color: inherit;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+}
+
+#bm-md > h1:first-child,
+#bm-md > h2:first-child,
+#bm-md > h3:first-child,
+#bm-md > h4:first-child,
+#bm-md > h5:first-child,
+#bm-md > h6:first-child {
+  margin-top: 0;
+}
+
+#bm-md p {
+  margin: 20px 0;
+  line-height: 1.8;
+  color: #1a1a1a;
+  text-align: left;
+}
+
+#bm-md p:last-child {
+  margin-bottom: 20px;
+}
+
+#bm-md strong,
+#bm-md b {
+  font-weight: 700;
+  color: #0a0a0a;
+}
+
+#bm-md em,
+#bm-md i {
+  font-style: italic;
+  color: #2a2a2a;
+}
+
+#bm-md del,
+#bm-md s,
+#bm-md strike {
+  color: #6f6f6f;
+  text-decoration: line-through;
+}
+
+#bm-md mark {
+  background-color: #f6f8fa;
+  color: #0a0a0a;
+  padding: 0.1em 0.25em;
+  border-radius: 0.25em;
+}
+
+#bm-md small {
+  font-size: 0.875em;
+  color: #6f6f6f;
+}
+
+#bm-md sup,
+#bm-md sub {
+  font-size: 0.75em;
+  line-height: 0;
+}
+
+#bm-md sup {
+  vertical-align: super;
+}
+
+#bm-md sub {
+  vertical-align: sub;
+}
+
+#bm-md ins {
+  background-color: #fafafa;
+  text-decoration: none;
+  padding: 0.1em 0.2em;
+  border-bottom: 1px solid #0a0a0a;
+}
+
+#bm-md q {
+  quotes: '“' '”' '‘' '’';
+  color: #1a1a1a;
+}
+
+#bm-md q::before {
+  content: open-quote;
+  color: #0a0a0a;
+  font-weight: 700;
+}
+
+#bm-md q::after {
+  content: close-quote;
+  color: #0a0a0a;
+  font-weight: 700;
+}
+
+#bm-md var {
+  font-style: italic;
+  color: #333333;
+}
+
+#bm-md samp,
+#bm-md tt {
+  font-family: 'SF Mono', Consolas, 'Liberation Mono', Menlo, monospace;
+  font-size: 0.875em;
+  background-color: #f6f8fa;
+  color: #1a1a1a;
+  padding: 0.1em 0.3em;
+  border: 1px solid #555555;
+}
+
+#bm-md abbr[title] {
+  border-bottom: 1px dotted #0a0a0a;
+  cursor: help;
+  text-decoration: none;
+}
+
+#bm-md a {
+  color: #0066cc;
+  text-decoration: none;
+  border-bottom: 1px solid #0066cc;
+}
+
+#bm-md a:hover {
+  color: #0052a3;
+  border-bottom-color: #0052a3;
+}
+
+#bm-md ruby {
+  ruby-align: center;
+}
+
+#bm-md rt {
+  font-size: 0.5em;
+  color: #6f6f6f;
+}
+
+#bm-md rp {
+  color: #6f6f6f;
+}
+
+#bm-md ul,
+#bm-md ol {
+  margin: 20px 0;
+  padding-left: 28px;
+}
+
+#bm-md ul {
+  list-style-type: disc;
+}
+
+#bm-md ol {
+  list-style-type: decimal;
+}
+
+#bm-md li {
+  margin: 10px 0;
+  line-height: 1.8;
+  color: #1a1a1a;
+}
+
+#bm-md li::marker {
+  color: #0a0a0a;
+}
+
+#bm-md li > ul,
+#bm-md li > ol {
+  margin-top: 0.25em;
+  margin-bottom: 0.25em;
+}
+
+#bm-md ul ul {
+  list-style-type: circle;
+}
+
+#bm-md ul ul ul {
+  list-style-type: square;
+}
+
+#bm-md ul.contains-task-list {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+#bm-md li.task-list-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.4em;
+}
+
+#bm-md input[type='checkbox'] {
+  margin-top: 0.35em;
+  accent-color: #0a0a0a;
+}
+
+#bm-md blockquote {
+  margin: 20px 0;
+  padding: 12px 18px;
+  border-left: 4px solid #0a0a0a;
+  background-color: #f8f9fa;
+  color: #1a1a1a;
+  font-size: 16px;
+  line-height: 1.6;
+  font-style: normal;
+}
+
+#bm-md blockquote p {
+  margin: 0 0 0.4em;
+  color: inherit;
+  line-height: inherit;
+}
+
+#bm-md blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+#bm-md blockquote blockquote {
+  margin-top: 0.5em;
+  margin-bottom: 0;
+  border-left-color: #555555;
+  background-color: #f6f8fa;
+}
+
+#bm-md code {
+  font-family: 'SF Mono', Consolas, Monaco, 'Courier New', monospace;
+  font-size: 15px;
+  background-color: #f5f5f5;
+  color: #d73a49;
+  padding: 2px 6px;
+  border-radius: 3px;
+}
+
+#bm-md pre {
+  margin: 24px 0;
+  padding: 20px;
+  background-color: #f6f8fa;
+  border: 1px solid #e1e4e8;
+  border-radius: 8px;
+  overflow-x: auto;
+  line-height: 1.6;
+}
+
+#bm-md pre code {
+  background-color: transparent;
+  color: inherit;
+  padding: 0;
+  border: none;
+  font-size: 15px;
+  line-height: inherit;
+}
+
+#bm-md table {
+  width: 100%;
+  margin: 24px 0;
+  border-collapse: collapse;
+  font-size: 16px;
+}
+
+#bm-md th,
+#bm-md td {
+  padding: 10px 14px;
+  border: 1px solid #e1e4e8;
+  text-align: left;
+  color: #1a1a1a;
+}
+
+#bm-md th {
+  font-weight: 600;
+  background-color: #f6f8fa;
+}
+
+#bm-md tr {
+  border-bottom: 1px solid #e1e4e8;
+}
+
+#bm-md tbody tr:nth-child(even) {
+  background-color: transparent;
+}
+
+#bm-md .frontmatter-table {
+  width: auto;
+  margin-bottom: 1.5em;
+  font-size: 0.875em;
+  border: none;
+}
+
+#bm-md .frontmatter-table td {
+  padding: 0.25em 0.75em 0.25em 0;
+  border: none;
+  vertical-align: top;
+  background-color: transparent;
+}
+
+#bm-md .frontmatter-key {
+  font-weight: 700;
+  color: #1a1a1a;
+  white-space: nowrap;
+}
+
+#bm-md .frontmatter-key::after {
+  content: ':';
+}
+
+#bm-md .frontmatter-value {
+  color: #1a1a1a;
+}
+
+#bm-md hr {
+  margin: 36px 0;
+  border: none;
+  height: 1px;
+  background-color: #e1e4e8;
+}
+
+#bm-md img {
+  display: block;
+  max-width: 100%;
+  max-height: 500px;
+  height: auto;
+  margin: 24px auto;
+  border-radius: 8px;
+}
+
+#bm-md picture {
+  display: block;
+  margin: 24px 0;
+}
+
+#bm-md picture img {
+  margin: 0 auto;
+}
+
+#bm-md figure {
+  margin: 24px 0;
+  text-align: center;
+}
+
+#bm-md figure.figure-image img {
+  margin: 0 auto;
+}
+
+/* 混排图片留在段落内，不使用独立图片的块级外间距。 */
+#bm-md p img {
+  display: inline;
+  margin: 0;
+  vertical-align: middle;
+}
+
+#bm-md figure.figure-table table {
+  margin: 0;
+}
+
+#bm-md .image-grid-cell img {
+  max-height: none;
+  margin: 0;
+}
+
+#bm-md figcaption {
+  margin-top: 0.5em;
+  font-size: 0.875em;
+  color: #6f6f6f;
+  font-style: italic;
+}
+
+#bm-md .footnotes {
+  margin-top: 1.75em;
+  padding-top: 0.75em;
+  border-top: 1px solid #555555;
+  font-size: 0.875em;
+  color: #6f6f6f;
+}
+
+#bm-md .footnotes ol {
+  padding-left: 1.25em;
+}
+
+#bm-md .footnote-ref {
+  font-size: 0.75em;
+  vertical-align: super;
+  color: #0a0a0a;
+  font-weight: 700;
+}
+
+#bm-md .footnote-backref,
+#bm-md .data-footnote-backref {
+  color: #0a0a0a;
+  text-decoration: none;
+}
+
+#bm-md dl {
+  margin: 1.1em 0;
+}
+
+#bm-md dt {
+  font-weight: 700;
+  color: #0a0a0a;
+  margin-top: 0.5em;
+}
+
+#bm-md dt:first-child {
+  margin-top: 0;
+}
+
+#bm-md dd {
+  margin-left: 1.25em;
+  margin-top: 0.2em;
+  color: #1a1a1a;
+}
+
+#bm-md kbd {
+  font-family: 'SF Mono', Consolas, 'Liberation Mono', Menlo, monospace;
+  font-size: 0.8125em;
+  display: inline-block;
+  padding: 0.15em 0.4em;
+  background-color: #fafafa;
+  border: 1px solid #555555;
+  border-bottom: 2px solid #0a0a0a;
+  color: #1a1a1a;
+}
+
+#bm-md .markdown-alert {
+  margin: 1.1em 0;
+  padding: 0.625em 1em;
+  border: 1px solid;
+  border-left: 3px solid;
+  background-color: #fafafa;
+}
+
+#bm-md .markdown-alert-title {
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
+  font-weight: 700;
+  margin-bottom: 0.3em;
+}
+
+#bm-md .markdown-alert-note {
+  background-color: #f4f6f8;
+  border-color: #9aa4b2;
+  border-left-color: #52606d;
+}
+
+#bm-md .markdown-alert-note .markdown-alert-title {
+  color: #52606d;
+}
+
+#bm-md .markdown-alert-tip {
+  background-color: #f2f8f3;
+  border-color: #8caf91;
+  border-left-color: #4f7f58;
+}
+
+#bm-md .markdown-alert-tip .markdown-alert-title {
+  color: #4f7f58;
+}
+
+#bm-md .markdown-alert-important {
+  background-color: #fff5f5;
+  border-color: #d48a8a;
+  border-left-color: #b23b3b;
+}
+
+#bm-md .markdown-alert-important .markdown-alert-title {
+  color: #b23b3b;
+}
+
+#bm-md .markdown-alert-warning {
+  background-color: #fff8ed;
+  border-color: #d89b42;
+  border-left-color: #a86400;
+}
+
+#bm-md .markdown-alert-warning .markdown-alert-title {
+  color: #a86400;
+}
+
+#bm-md .markdown-alert-caution {
+  background-color: #fff2f2;
+  border-color: #d07171;
+  border-left-color: #a62929;
+}
+
+#bm-md .markdown-alert-caution .markdown-alert-title {
+  color: #a62929;
+}
+
+#bm-md .math-inline {
+  font-size: 1em;
+}
+
+#bm-md .math-display {
+  margin: 1.1em 0;
+  overflow-x: auto;
+  text-align: center;
+}
+
+#bm-md details {
+  margin: 1.1em 0;
+  padding: 0.5em 0.75em;
+  background-color: #fafafa;
+  border: 1px solid #555555;
+  border-left: 3px solid #0a0a0a;
+}
+
+#bm-md summary {
+  font-weight: 700;
+  cursor: pointer;
+  color: #1a1a1a;
+}
+
+#bm-md details[open] summary {
+  margin-bottom: 0.5em;
+  padding-bottom: 0.5em;
+  border-bottom: 1px solid #555555;
+}
+
+#bm-md iframe,
+#bm-md video {
+  display: block;
+  max-width: 100%;
+  margin: 1.1em 0;
+  border: 1px solid #555555;
+}
+
+#bm-md .meta,
+#bm-md time {
+  font-size: 0.875em;
+  color: #6f6f6f;
+  font-style: italic;
+}
+
+#bm-md.indent-first-line p {
+  text-indent: 2em;
+}
+
+/* ===== 首块贴顶：置于文件尾，juice 内联按声明出现顺序拼接，须晚于 img/figure 的 margin 简写 ===== */
+
+#bm-md > :first-child,
+#bm-md figure.figure-image:first-child img {
+  margin-top: 0;
+}
