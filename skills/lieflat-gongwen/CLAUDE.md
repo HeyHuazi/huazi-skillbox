@@ -17,6 +17,9 @@
 - `scripts/check_params.py`：参数自检器，纯 Python 标准库。`--genre 文种` 验收、`--match` 跨文种向量匹配、`--list` 列文体；输出区分 ✗硬冲突与 ⚠软提示。
 - `scripts/strip_meta.py`：语料脱敏脚本（上游内部工具）。
 - `assets/`：README 封面图与其生成脚本，写作流程不依赖。
+- `refs/README.md`：结构占位。本 skill 数据按上游约定平铺于根目录与中文子目录，未迁入 `refs/`；保留目录以满足 huazi-skillbox 结构约定。
+- `README.md`：上游仓库的对外说明（封面图与叙事），非 Agent 运行依赖。
+- `LICENSE`：上游授权条款，随包分发，与库根 MIT 独立生效。
 
 ## 约定
 

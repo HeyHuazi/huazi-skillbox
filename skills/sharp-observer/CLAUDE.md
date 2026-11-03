@@ -5,7 +5,7 @@
 ## 成员清单
 
 - SKILL.md: skill 唯一入口。YAML frontmatter（name/description/version）+ L3 契约 + 三种观察叙事技法决策树与完整操作步骤。Agent 按此文件驱动执行。
-- refs/: 预留，当前无外部数据依赖。
+- refs/README.md: 结构占位。本 skill 无独立 JSON 方法卡，规范内联于 SKILL.md；目录随包分发以满足库结构约定。
 
 ## 设计决策
 

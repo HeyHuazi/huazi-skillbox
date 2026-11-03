@@ -5,6 +5,7 @@
 ## 成员清单
 
 - SKILL.md: skill 唯一入口。YAML frontmatter（name/description/version）+ L3 契约 + 李明角色设定＋两大战法（文案创作与概念定义）。Agent 按此文件驱动执行。
+- refs/README.md: 结构占位。本 skill 无独立 JSON 方法卡，规范内联于 SKILL.md；目录随包分发以满足库结构约定。
 
 ## 设计决策
 
