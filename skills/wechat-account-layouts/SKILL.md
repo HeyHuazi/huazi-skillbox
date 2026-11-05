@@ -1,7 +1,7 @@
 ---
 name: wechat-account-layouts
 description: 三个协会公众号的排版交付：主号使用主号成稿蓝色版式（蓝顶栏+栏目名+期号），AI 夜校使用 MarkFlow「AI 夜校」版式（尾栏含期号），中继协人工智能号使用 MarkFlow「深度阅读」版式（机构简介+口号+供稿编辑尾块）；配图按清单注入并内联，输出供人复制到公众号编辑器的内联 HTML。Style and render articles for the three association WeChat accounts using their verified layouts; deliver inline HTML with images embedded for human review and paste.
-version: 0.4
+version: 0.5
 ---
 
 <!--
@@ -31,7 +31,7 @@ version: 0.4
 
 1. **核目标号**，取已核对的 Markdown 稿件与配图文件（图片路径、原图授权状态）。
 2. **写配图清单** `images.json`，把配图插到正确位置（见下）。
-3. **选预设渲染**，产出 `预览-v1.html`，用浏览器核对首屏与手机宽度。
+3. **选预设渲染**，产出 `预览-v1.html`，用 `scripts/check-layout.mjs` 跑体检，再用浏览器核对首屏与手机宽度。
 4. **写待核清单**，列出未核实事项与图片使用限制。
 5. **交付**：私聊华子发能直接打开的预览文件，说明目标号、版本、待核事项与图片上传顺序。
 6. **归档**：确认后把成品放花园对应目录——主号 `渠道矩阵/主号/公众号内容/`，夜校 `AI夜校/公众号内容/`，中继协 `渠道矩阵/中继协号/公众号内容/`；**不得把未审预览自动写进花园**。
@@ -83,18 +83,34 @@ node skills/wechat-account-layouts/scripts/render.mjs \
 | `--markflow` | MarkFlow 依赖位置，默认 `/Users/huazi/Code/Developer/MarkFlow`，可用 `MARKFLOW_DIR` 环境变量 |
 
 渲染器只覆盖常用 GFM、表格、图片、引用，不声称复刻 MarkFlow 对数学、图表、本地 `img://` 的完整工作流。复杂稿件直接在 MarkFlow 界面选对应主题并使用「复制到微信」。
-
 ## 交付前检查
 
-- [ ] 目标号与预设一致，栏目名/期号不为空
-- [ ] 配图数量与稿件一致，`naturalWidth` 均非 0（无 broken 图）
-- [ ] 图片顺序与正文逻辑对应，没有锚点告警未处理
-- [ ] 尾块完整：中继协有机构简介+口号+供稿编辑；夜校有账号+期号；主号有责编/编委会
-- [ ] 无未替换占位符 `【配图：…】`、无内网图片链接
-- [ ] 首屏与 390px 手机宽度可读，无横向溢出
-- [ ] 待核清单已写，图片授权状态已注明
+用体检脚本跑一遍，不要靠肉眼：
+
+```bash
+node skills/wechat-account-layouts/scripts/check-layout.mjs --preset deep-reading --html 预览-v1.html --images images.json
+```
+
+脚本查 15 项：文档结构、版式 wrapper、样式是否真内联、图片 alt 与来源、配图数量与清单一致、三号尾块固定块、占位符/待办/内网路径、内部块残留、H1 数量、H2 小节数。全部通过才会输出「可交付」。
+
+机器查不了的仍要人工看：首屏与 390px 手机宽度可读、无横向溢出、图片位置与正文逻辑对应。
 
 **公众号后台粘贴后需实测图片是否仍存在**——大图 `data:` 有被编辑器处理的可能，这是已知风险项。
+
+## 与 wechat-publisher-mcp 的分工
+
+本机还装了一套 `@hectoryuan/wechat-publisher-mcp`（`~/Code/Developer/wechat-publisher-mcp`），提供 43 个 MCP 工具、17 套内置主题、多平台渲染与**直接建草稿**的能力。两套不重叠：
+
+| | 本 Skill | wechat-publisher-mcp |
+|---|---|---|
+| 版式 | 三个号的**固定成稿版式**，从真实成稿反推 | 17 套通用主题 + 8 套自定义主题 |
+| 图片 | 清单注入 + base64 内嵌 | `upload_inline_images` 上传到素材库 |
+| 出口 | 人工复制粘贴到编辑器 | `create_draft` 直接建草稿（scope=draft） |
+| 安全 | 不碰后台 | read/draft/publish 三级 scope，发布那一下物理锁在用户手里 |
+
+**不重复造轮子**：本 Skill 负责把稿子排成协会三个号认得的版式；要「排完直接进草稿箱」时，用 `publish_smart(markdown, title, dryRun: true)` 先本地预览，确认无误再走真实草稿。
+
+**它的 `extract_template` 不要用来替代本 Skill 的版式**：实测它只提取色彩/字号等粗粒度 token（夜校成稿逆向出 `primary: #024cc6` 正确），但丢失了 MarkFlow 主题的完整 CSS 契约，闭环还原失败（回退基础主题，颜色变绿），且导出的 YAML 对多行字体名转义有 bug。
 
 ## 来源与许可
 
