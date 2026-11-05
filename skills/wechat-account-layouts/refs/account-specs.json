@@ -1,0 +1,105 @@
+{
+  "_meta": {
+    "version": "1.0",
+    "purpose": "三个协会公众号的版式规格基线。每条规格都从真实成稿反推，不凭印象写。",
+    "verified_against": {
+      "main-account": "/Users/huazi/Downloads/主号排版/ 共 7 篇成稿（2026-10-27 至 10-30）",
+      "ai-night-school": "花园 渠道矩阵/AI夜校/公众号内容/2026-11-03-AI应用周刊2026W44/预览-v2.html",
+      "deep-reading": "花园 渠道矩阵/中继协号/公众号内容/2026-11-05-吴志强报告/预览-v1.html"
+    },
+    "rule": "改规格前先看真成稿；成稿与本表冲突时以成稿为准并回写本表。"
+  },
+
+  "main-account": {
+    "account": "上海继续工程教育协会主号",
+    "preset": "main-account",
+    "layout": {
+      "canvas": "div style=\"max-width:677px;margin:0 auto;background:#FFFFFF;padding:24px 16px 32px;\"",
+      "font_stack": "-apple-system,BlinkMacSystemFont,'Helvetica Neue','PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif",
+      "body_size": "17px",
+      "line_height": "1.8",
+      "text_color": "#333333"
+    },
+    "masthead": {
+      "required": true,
+      "structure": "顶栏蓝条 + 栏目名（左，#3B5BA5 / 15px / bold / letter-spacing:1px）+ 期号（右，#999 / 12px / float:right）",
+      "bar_color": "#3B5BA5",
+      "bar_height": "6px",
+      "divider": "1px solid #EAEAEA",
+      "rule": "栏目名与期号是真实成稿共有的语义层，不得留空 masthead。发稿前从稿件元信息取栏目名与期号。"
+    },
+    "h1": { "size": "24px", "weight": "700", "color": "#222222", "line_height": "1.4", "align": "left" },
+    "h2": { "size": "18px", "weight": "700", "color": "#3B5BA5", "left_bar": "4px solid #3B5BA5", "pad_left": "10px", "margin": "24px 0 14px" },
+    "h3": { "size": "17px", "weight": "700", "color": "#222222" },
+    "p": { "margin": "0 0 16px", "size": "17px", "line_height": "1.8", "align": "left" },
+    "blockquote": { "left_bar": "4px solid #3B5BA5", "bg": "#F5F7FA", "pad": "10px 14px", "color": "#555555", "p_size": "15px" },
+    "img": { "display": "block", "max_width": "100%", "height": "auto", "margin": "12px auto 8px" },
+    "table": { "font_size": "14px", "border": "1px solid #E6EBF3", "th_bg": "#F7F9FC", "th_color": "#3B5BA5" },
+    "hr": { "border_top": "1px solid #EAEAEA", "margin": "24px 0" },
+    "first_image_rule": "主号成稿首图位于正文第一段之前；主图后接导语。",
+    "footer": {
+      "required": false,
+      "variants": ["转载荐读（责编/审核/值班编委/来源声明）", "协会自有（执行主编/编委会/审核/日期）"],
+      "rule": "转载稿保留原作者署名与来源声明，末尾加协会关注引导；自有稿加执行主编与编委会署名。两者不可混用。"
+    }
+  },
+
+  "ai-night-school": {
+    "account": "上海 AI 夜校",
+    "preset": "ai-night-school",
+    "layout": {
+      "wrapper": "bm-md",
+      "body_size": "15px",
+      "line_height": "1.8",
+      "text_color": "#222222",
+      "accent": "#024CC6"
+    },
+    "h1": { "size": "1.55em", "weight": "700", "color": "#111111", "align": "left" },
+    "h2": { "size": "1.33em", "weight": "600", "color": "#024CC6" },
+    "img": { "radius": "圆角媒体", "rule": "图片放 figure.figure-image，配 figcaption 时用 figure 包裹" },
+    "table": { "required": true, "rule": "周刊含对比表格，表格样式由主题 CSS 承担，不要退回 Markdown 管道表" },
+    "lead_block": {
+      "required": true,
+      "type": "blockquote",
+      "rule": "篇首导语块用 blockquote，位于 h1 之后、正文之前。"
+    },
+    "footer": {
+      "required": true,
+      "text": "上海AI夜校 · AI应用周刊｜{期号}",
+      "align": "center",
+      "style": "12-13px / #8A8A8A",
+      "rule": "尾栏必须含账号名与期号；期号格式 YYYYWWNN（如 2026W44）。"
+    }
+  },
+
+  "deep-reading": {
+    "account": "中继协人工智能分会号",
+    "preset": "deep-reading",
+    "layout": {
+      "wrapper": "bm-md",
+      "body_size": "17px",
+      "line_height": "1.75",
+      "max_width": "680px",
+      "text_color": "#1A1A1A"
+    },
+    "h1": { "size": "26px", "weight": "700", "color": "#0A0A0A", "line_height": "1.25" },
+    "h2": { "size": "22px", "weight": "700", "color": "#0A0A0A", "margin": "32px 0 16px" },
+    "p": { "margin": "20px 0", "line_height": "1.8", "align": "left" },
+    "img": { "radius": "4px", "width": "100%", "margin": "22px auto" },
+    "lead_label": {
+      "required": false,
+      "text": "导 语",
+      "style": "14px / bold / #8A8A8A / letter-spacing:4px",
+      "rule": "长篇报告稿用「导 语」小标引导，视觉上与正文拉开层级。"
+    },
+    "footer": {
+      "required": true,
+      "structure": "分隔线 + 机构简介段 + 口号「从AI旁观者，到AI驾驭者。」+ 虚线分隔的供稿/编辑行",
+      "org_intro_rule": "机构简介用统一详版文案（成立日期、牵头单位、使命三段），各号文末一致，不得临时改写。",
+      "slogan": "从AI旁观者，到AI驾驭者。",
+      "credit": "供稿：中国继续工程教育协会人工智能分会 / 编辑：上海继续工程教育协会综合管理部",
+      "credit_style": "12px / #8A8A8A / 虚线上边框 / 居中"
+    },
+    "closing_rule": "正文末尾预告下一期，预告中点出下一期主题与嘉宾/报告人。"
+  }
+}

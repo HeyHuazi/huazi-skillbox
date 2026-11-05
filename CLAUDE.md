@@ -41,7 +41,7 @@ skills/{slug}/
 - catalog/CLAUDE.md - 2388 篇大厂复盘文章索引，只读语料库
 - scripts/CLAUDE.md - 全库脚手架与结构校验
 - skills/folio/CLAUDE.md - 图文排版与图片导出，蓝色周刊支持竖版、方图与长图
-- skills/wechat-account-layouts/CLAUDE.md - 三号公众号样式选择、主号成稿版式与 MarkFlow 双主题的内联 HTML 交付
+- skills/wechat-account-layouts/CLAUDE.md - 三号公众号样式选择、主号成稿版式与 MarkFlow 双主题的内联 HTML 交付，配图清单注入
 - skills/lieflat-gongwen/CLAUDE.md - 公文写作 DNA：两族七文种可验收风格参数与自检脚本（上游收录，保留中文目录约定）
 - skills/association-writing-guide/CLAUDE.md - 协会公开稿件文风和内容红线
 - skills/government-article-reviewer/CLAUDE.md - 政务文章发布前审校：政治表述/人名职务/文种结构/语言语法/标点数字六轮检查与 A·B·C 分级

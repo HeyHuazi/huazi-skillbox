@@ -41,7 +41,7 @@ outputs/            任务产物，按需生成并由 Git 忽略
 | [efficiency-toolkit](skills/efficiency-toolkit/) | 设计师效率工具箱：时间块规划、任务池 ROI、工程化设计、流程自动化、审批提效、AI 批量处理、可视化选型等 11 法 |
 | [association-writing-guide](skills/association-writing-guide/) | 协会公开稿件文风与表达规范：政务纪实体/专题纵深体双文体决策、标题句式工艺、事实与称谓规范、内容六条红线与自检清单，基于协会通讯 86 期精读提炼 |
 | [government-article-reviewer](skills/government-article-reviewer/) | 政务文章审校：按政治表述→人名职务→文种结构→语言语法→标点数字的顺序检查，A/B/C 三级问题分级与人工核验清单，附公文文种与官方媒体写法三份细则 |
-| [wechat-account-layouts](skills/wechat-account-layouts/) | 三个公众号的排版交付：主号成稿蓝色版式、MarkFlow AI 夜校版式、MarkFlow 深度阅读版式；输出可供人复制的内联 HTML，不操作公众号后台 |
+| [wechat-account-layouts](skills/wechat-account-layouts/) | 三个公众号的排版交付：主号蓝顶栏+栏目名期号、MarkFlow AI 夜校版式、MarkFlow 深度阅读版式；配图清单注入并内联，输出可供人复制的内联 HTML，不操作公众号后台 |
 | [lieflat-gongwen](skills/lieflat-gongwen/) | 公文写作 DNA：基于 229+77 篇真实公文全量统计的可验收风格参数（句长/顿号密度/层级配比/力度词配额），覆盖调研报告、领导讲话、工作意见、经验材料、工作方案、经验总结与千字级党建材料，含参数自检脚本 |
 | [thinking-toolkit](skills/thinking-toolkit/) | 思维模型工坊：十个思维角色（概率侦探、论证解剖师、系统思维黑客、模式猎人、哲学家、追问者、矛盾猎人、思想考古学家、真理探索者、维度坍缩检视），一个决策树路由 |
 | [knowledge-alchemist](skills/knowledge-alchemist/) | 知识炼金工坊：六种知识处理技法（HQ&A 萃取、书籍透视、思想炼金、形态转化、学术通俗化、公式解读） |
