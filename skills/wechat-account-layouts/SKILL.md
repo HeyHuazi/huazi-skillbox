@@ -1,7 +1,7 @@
 ---
 name: wechat-account-layouts
 description: 三个协会公众号的排版交付：主号使用主号成稿蓝色版式（蓝顶栏+栏目名+期号），AI 夜校使用 MarkFlow「AI 夜校」版式（尾栏含期号），中继协人工智能号使用 MarkFlow「深度阅读」版式（机构简介+口号+供稿编辑尾块）；配图按清单注入并内联，输出供人复制到公众号编辑器的内联 HTML。Style and render articles for the three association WeChat accounts using their verified layouts; deliver inline HTML with images embedded for human review and paste.
-version: 0.6
+version: 0.6.1
 ---
 
 <!--
@@ -40,7 +40,9 @@ version: 0.6
 
 ## 配图注入（本 Skill 的关键能力）
 
-**为什么需要**：稿件 `.md` 往往不含 Markdown 图片语法——图片在成稿阶段才插入。只吃 Markdown 的渲染器会**丢掉全部配图**（实测 img=0）。
+**稿件里直接写的 Markdown 图片 `![](配图.jpg)` 也会被内联成 base64**，相对路径不会漏到成品里；`--no-inline-images` 时两者都保留原路径。
+
+**为什么需要清单**：稿件 `.md` 往往不含 Markdown 图片语法——图片在成稿阶段才插入。只吃 Markdown 的渲染器会**丢掉全部配图**（实测 img=0）。
 
 **做法**：渲染时带 `--images 清单.json`，清单是「锚点文字 → 图片」的映射：
 

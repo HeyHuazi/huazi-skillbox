@@ -1,6 +1,6 @@
 {
   "name": "wechat-account-layouts",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "private": true,
   "description": "上海继续工程教育协会三个公众号的成稿版式渲染与排版体检（主号 / AI 夜校 / 中继协人工智能号）",
   "type": "module",

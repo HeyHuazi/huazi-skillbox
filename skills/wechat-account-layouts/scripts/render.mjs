@@ -134,7 +134,29 @@ async function injectImages(bodyHtml) {
   return out
 }
 
-let body = await injectImages(html)
+/**
+ * 把稿件里的 Markdown 图片也内联成 base64。
+ * 不处理这一步，`![](配图.jpg)` 会留下相对路径——粘进公众号编辑器就是坏图。
+ * 只处理相对路径；data: 与 http(s) 原样保留。
+ */
+async function inlineMarkdownImages(bodyHtml) {
+  if (args['no-inline-images']) return bodyHtml
+  const srcs = [...bodyHtml.matchAll(/<img\b[^>]*?\ssrc="([^"]+)"/g)].map(m => m[1])
+  const rels = [...new Set(srcs)].filter(s => !/^(data:|https?:)/i.test(s))
+  const warnings = []
+  let out = bodyHtml
+  for (const src of rels) {
+    const rel = decodeURIComponent(src)
+    const abs = path.resolve(imageDir, rel)
+    try { await stat(abs) } catch { warnings.push(`稿件图片找不到，保留原路径: ${rel}`); continue }
+    const uri = await toDataUri(abs, rel)
+    out = out.split(`src="${src}"`).join(`src="${uri}"`)
+  }
+  if (warnings.length) console.warn('⚠ ' + warnings.join('\n⚠ '))
+  return out
+}
+
+let body = await inlineMarkdownImages(await injectImages(html))
 
 // ---------- 各号头尾块 ----------
 const esc = s => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
