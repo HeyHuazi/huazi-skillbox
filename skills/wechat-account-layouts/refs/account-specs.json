@@ -61,7 +61,13 @@
     "lead_block": {
       "required": true,
       "type": "blockquote",
-      "rule": "篇首导语块用 blockquote，位于 h1 之后、正文之前。"
+      "bg": "#E6EDF9",
+      "bg_derivation": "#024CC6 淡染 10%，不透明纯色，不用 rgba 叠加",
+      "text_color": "#555555",
+      "left_bar": "3px solid #024CC6",
+      "radius": "0 12px 12px 0",
+      "padding": "0.9em 1.1em",
+      "rule": "篇首导语块用 blockquote，位于 h1 之后、正文之前。底色是签名蓝淡底且**不透明纯色**；字色、左签、圆角、内边距保持原版。不得用 rgba 半透明（2026-11-10 的 rgba(2,76,198,0.06) 已废弃），不得改成 #024CC6 实心深蓝块，不得退回 #faf7f5 暖灰底。"
     },
     "footer": {
       "required": true,

@@ -11,8 +11,10 @@
 - `assets/ai-night-school/{reset.css,ai-night-school.css}`：MarkFlow AI 夜校主题副本。
 - `assets/deep-reading/{reset.css,deepread.css,THIRD_PARTY_NOTICES.md}`：MarkFlow 深度阅读主题副本及第三方许可。
 - `previews/示例三版式对比/`：三个预设各一篇示例成稿（示例-*.html）与共用示例稿件、配图，供选版时对照预览。
-- `scripts/render.mjs`：使用 MarkFlow 现有 Markdown 和 juice 依赖渲染内联 HTML。支持 `--images` 配图清单注入、`--image-dir`、`--meta` 各号头尾信息、`--no-inline-images`。
-- `scripts/check-layout.mjs`：排版体检。查 15 项机械可判项（文档结构、wrapper、内联样式、图片 alt/来源/数量、尾块固定块、占位符与内部块残留、标题层级），全部通过才输出「可交付」。
+- `README.md`：对外说明——三版式对照、安装、渲染与体检用法、配图清单格式、改版式的固定顺序、来源与许可。给别人用这一份就够。
+- `package.json` / `package-lock.json`：Markdown 渲染依赖声明。`npm install` 后本 Skill 自包含，不再依赖外部项目；锁文件保证各机器渲染结果一致。
+- `scripts/render.mjs`：Markdown → 内联 HTML。依赖解析顺序为 `--markflow` → `MARKFLOW_DIR` → 本 Skill `node_modules` → 本机 MarkFlow。支持 `--images` 配图清单注入、`--image-dir`、`--meta` 各号头尾信息、`--no-inline-images`。
+- `scripts/check-layout.mjs`：排版体检。查机械可判项（夜校 16 项，含导语块底色与左签 5 项；其余 preset 11 项）：文档结构、wrapper、内联样式、图片 alt/来源/数量、尾块固定块、导语块底色与左签、占位符与内部块残留、标题层级；全过才输出「可交付」。
 
 ## 约定
 

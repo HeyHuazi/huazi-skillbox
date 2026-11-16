@@ -104,6 +104,31 @@ for (const [name, re] of footers[args.preset] || []) {
   else bad(`尾块·${name}`, '未检出')
 }
 
+// ── 5b. 篇首导语块底色契约 ──
+// 2026-11-16 华子定：夜校导语块底色是签名蓝淡底、不透明，字色/左签/圆角/内边距保持原版。
+// 三元组：[名称, 正则, 是否反向]；反向时命中即为错。
+const leadBlocks = {
+  'ai-night-school': [
+    ['签名蓝淡底 #E6EDF9', /background-color:\s*#e6edf9/i, false],
+    ['底不透明', /background(-color)?:\s*(rgba|hsla)\(|background(-color)?:\s*transparent/i, true],
+    ['非实心深蓝块', /background-color:\s*#024cc6/i, true],
+    ['非暖灰底 #faf7f5', /background-color:\s*#faf7f5/i, true],
+    ['左蓝签保留', /border-left:\s*3px solid #024cc6/i, false],
+  ],
+}
+if (leadBlocks[args.preset]) {
+  const bq = html.match(/<blockquote\b[^>]*>/i)
+  if (!bq) {
+    bad('导语块', '未检出 blockquote')
+  } else {
+    for (const [name, re, negate] of leadBlocks[args.preset]) {
+      const hit = re.test(bq[0])
+      if (negate ? !hit : hit) ok(`导语块·${name}`)
+      else bad(`导语块·${name}`, '与 refs/account-specs.json 的 lead_block 不符')
+    }
+  }
+}
+
 // ── 6. 占位符与脏数据 ──
 // 只扫可见文本：base64 里会随机命中 XXX/TODO 等字样，扫全文必然误报。
 const visibleText = html

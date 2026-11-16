@@ -1,5 +1,6 @@
 #!/usr/bin/env node
-// 从本 Skill 自带三套样式渲染公众号 HTML；依赖现有 MarkFlow 项目的 Markdown 运行库，不改其源码。
+// 从本 Skill 自带三套样式渲染公众号 HTML；Markdown 运行库优先用本 Skill 自带的 node_modules（npm install），
+// 没有时退回本机 MarkFlow 项目，不改其源码。
 //
 // 关键约定（见 refs/account-specs.json）：
 //  1. 配图不能只靠 Markdown —— 稿件 .md 往往不含图片语法，图片在成稿阶段才插入。
@@ -47,12 +48,38 @@ const presets = JSON.parse(await readFile(path.join(root, 'refs/presets.json'), 
 const preset = presets[args.preset]
 if (!preset) throw new Error(`未知版式: ${args.preset}\n${usage}`)
 
-const markflow = path.resolve(args.markflow || process.env.MARKFLOW_DIR || '/Users/huazi/Code/Developer/MarkFlow')
-const requireFromMarkflow = createRequire(path.join(markflow, 'package.json'))
-const load = async name => import(pathToFileURL(requireFromMarkflow.resolve(name)).href)
-const [{ unified }, { default: remarkParse }, { default: remarkGfm }, { default: remarkRehype }, { default: rehypeStringify }, { default: rehypeSanitize }, juiceModule] = await Promise.all([
-  load('unified'), load('remark-parse'), load('remark-gfm'), load('remark-rehype'), load('rehype-stringify'), load('rehype-sanitize'), load('juice'),
-])
+// 依赖解析顺序：--markflow 指定 → MARKFLOW_DIR 环境变量 → 本 Skill 自带 node_modules → 本机默认 MarkFlow 项目。
+// 前三个是给别的机器用的（skill 目录里跑过 npm install 即可自包含），最后一个是本机原有习惯，保留兼容。
+const depNames = ['unified', 'remark-parse', 'remark-gfm', 'remark-rehype', 'rehype-stringify', 'rehype-sanitize', 'juice']
+const depBases = [
+  args.markflow,
+  process.env.MARKFLOW_DIR,
+  root,
+  '/Users/huazi/Code/Developer/MarkFlow',
+].filter(Boolean).map(p => path.resolve(p))
+
+let depPaths = null
+const tried = []
+for (const base of depBases) {
+  try {
+    const req = createRequire(path.join(base, 'package.json'))
+    depPaths = depNames.map(name => req.resolve(name))
+    break
+  } catch {
+    tried.push(base)
+  }
+}
+if (!depPaths) {
+  throw new Error(
+    '找不到 Markdown 渲染依赖（' + depNames.join(' / ') + '）。\n' +
+    '已尝试：\n  ' + tried.join('\n  ') + '\n' +
+    '解决：在本 Skill 目录执行 npm install，或用 --markflow 指向已安装这些依赖的项目。',
+  )
+}
+const load = p => import(pathToFileURL(p).href)
+const [{ unified }, { default: remarkParse }, { default: remarkGfm }, { default: remarkRehype }, { default: rehypeStringify }, { default: rehypeSanitize }, juiceModule] = await Promise.all(
+  depPaths.map(load),
+)
 const juice = juiceModule.default
 
 // ---------- 读取稿件 ----------

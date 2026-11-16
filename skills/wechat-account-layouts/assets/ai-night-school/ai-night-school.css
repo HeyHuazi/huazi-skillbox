@@ -162,12 +162,15 @@
   overflow: hidden;
 }
 
-/* ===== 引用：浅暖灰底 + 橙红左签 ===== */
+/* ===== 引用：签名蓝淡底（不透明纯色）+ 签名蓝左签 =====
+   2026-11-10 华哥：米色底 #faf7f5 与夜校签名蓝调性不搭。
+   2026-11-16 华哥：底色必须是纯色蓝，不要 rgba 半透明——改为 #E6EDF9（#024CC6 淡染 10% 的等效不透明色）。
+   本副本与 MarkFlow 源主题自此分叉，适配不回写 MarkFlow。 */
 
 #bm-md blockquote {
   margin: 1.9em 0;
   padding: 0.9em 1.1em;
-  background-color: #faf7f5;
+  background-color: #e6edf9;
   border-left: 3px solid #024cc6;
   border-radius: 0 12px 12px 0;
   color: #555555;
